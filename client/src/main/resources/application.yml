@@ -8,6 +8,6 @@ eureka:
   client:
 #    fetchRegistry: false
     serviceUrl:
-      defaultZone: http://peer1:8761/eureka/
+      defaultZone: http://peer1:8761/eureka/,http://peer2:8761/eureka/
 server:
   port: 8080
