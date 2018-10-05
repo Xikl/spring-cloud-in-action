@@ -1,15 +1,16 @@
 eureka:
   instance:
-    hostname: peer1
+    hostname: peer2
   client:
     registerWithEureka: false
+    # 从分片中同步信息
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://peer2:8762/eureka/
+      defaultZone: http://peer1:8761/eureka/
   server:
     enable-self-preservation: false
 spring:
   application:
-    name: eureka
+    name: slave-eureka
 server:
-  port: 8761
+  port: 8762
