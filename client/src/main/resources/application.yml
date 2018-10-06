@@ -4,10 +4,12 @@ spring:
 
 eureka:
   instance:
-    hostname: peer1
+    hostname: localhost
+  #    hostname: peer1
   client:
 #    fetchRegistry: false
     serviceUrl:
-      defaultZone: http://peer1:8761/eureka/,http://peer2:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
+#      defaultZone: http://peer1:8761/eureka/,http://peer2:8761/eureka/
 server:
   port: 8080
