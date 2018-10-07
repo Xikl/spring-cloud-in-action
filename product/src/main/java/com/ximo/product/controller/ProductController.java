@@ -4,14 +4,10 @@ import com.ximo.product.domain.ProductCategory;
 import com.ximo.product.domain.ProductInfo;
 import com.ximo.product.service.ProductCategoryService;
 import com.ximo.product.service.ProductInfoService;
-import com.ximo.product.util.ConvertUtil;
-import com.ximo.product.vo.ProductInfoVO;
 import com.ximo.product.vo.ProductVO;
 import com.ximo.product.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,7 +27,7 @@ public class ProductController {
     @Autowired
     private ProductCategoryService productCategoryService;
 
-
+    /** 查询所有的上架商品*/
     @GetMapping()
     public ResultVO<List<ProductVO>> list() {
         //1查询所有的上架商品
@@ -42,25 +38,20 @@ public class ProductController {
         List<ProductCategory> productCategoryList = productCategoryService.findByCategoryTypeIn(productTypeList);
         //4构造数据
         List<ProductVO> productVOList = productCategoryList.stream()
-                .map(productCategory -> getProductVO(productCategory, productInfoList)).collect(toList());
+                .map(productCategory -> ProductVO.getProductVO(productCategory, productInfoList)).collect(toList());
         return ResultVO.success(productVOList);
     }
 
     /**
-     * 获得商品列表信息
+     * 获取商品列表
+     * 给Order服务进行调用的
      *
-     * @param productCategory 商品类目
-     * @param productInfoList 商品信息列表
-     * @return 商品VO对象
+     * @param productIdList 商品ID列表
+     * @return 商品对应的信息
      */
-    private ProductVO getProductVO(ProductCategory productCategory, List<ProductInfo> productInfoList) {
-        ProductVO productVO = ConvertUtil.convert(productCategory, ProductVO.class);
-        List<ProductInfoVO> productInfoVOList = productInfoList.stream()
-                .filter(productInfo -> productCategory.getCategoryType().equals(productInfo.getCategoryType()))
-                .map(productInfo -> ConvertUtil.convert(productInfo, ProductInfoVO.class))
-                .collect(toList());
-        productVO.setProductInfoVOList(productInfoVOList);
-        return productVO;
+    @PostMapping("/listForOrder")
+    public ResultVO<List<ProductInfo>> listForOrder(@RequestBody List<String> productIdList) {
+        return ResultVO.success(productInfoService.findList(productIdList));
     }
 
 

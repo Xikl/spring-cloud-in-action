@@ -3,6 +3,7 @@ package com.ximo.product.repository;
 import com.ximo.product.domain.ProductInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -19,6 +20,13 @@ public interface ProductInfoRepository extends JpaRepository<ProductInfo, String
      */
     List<ProductInfo> findByProductStatus(Integer productStatus);
 
+    /**
+     * 商品id列表
+     *
+     * @param productIdList 商品ID列表
+     * @return 对应的商品信息
+     */
+    List<ProductInfo> findByProductIdIn(List<String> productIdList);
 
 
 }

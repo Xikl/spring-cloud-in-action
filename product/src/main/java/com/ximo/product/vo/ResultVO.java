@@ -22,8 +22,7 @@ public class ResultVO<T> {
     private T data;
 
     /** 私有构造*/
-    private ResultVO() {
-        throw new UnsupportedOperationException();
+    public ResultVO() {
     }
 
     /** 私有构造*/
