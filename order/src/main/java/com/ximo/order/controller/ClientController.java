@@ -1,5 +1,6 @@
 package com.ximo.order.controller;
 
+import com.ximo.order.client.ProductClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,12 +19,15 @@ public class ClientController {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private ProductClient productClient;
 
     @GetMapping("/getProductMsg")
     public String getProductMsg() {
         // 第三种方式
-        String response = restTemplate.getForObject("http://PRODUCT/msg", String.class);
-
+        // String response = restTemplate.getForObject("http://PRODUCT/msg", String.class);
+        // 通过feign调用
+        String response = productClient.productMsg();
         log.info("rest请求， String={}", response);
         return response;
     }
