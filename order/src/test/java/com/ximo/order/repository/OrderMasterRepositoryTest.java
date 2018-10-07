@@ -25,7 +25,7 @@ public class OrderMasterRepositoryTest extends OrderApplicationTests {
         OrderMaster orderMaster = new OrderMaster();
         orderMaster.setOrderId("1234");
         orderMaster.setBuyerAddress("testAddr2");
-        orderMaster.setBuyerAmount(new BigDecimal(3.0));
+        orderMaster.setOrderAmount(new BigDecimal(3.0));
         orderMaster.setBuyerName("ximo");
         orderMaster.setBuyerOpenid("asdnjfoijopiajpsdfasdf");
         orderMaster.setBuyerPhone("123456677");
